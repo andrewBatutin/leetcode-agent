@@ -1,6 +1,6 @@
-from src.task.bin_tree_max_depth import Solution
+from src.task.some import some
+
 
 def test_104():
-    s = Solution()
+    s = some()
     assert not None
-    
