@@ -1,1 +1,1 @@
-pytest==7.4.2
+python-ulid==1.1.0
