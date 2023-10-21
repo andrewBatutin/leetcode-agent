@@ -1,6 +1,6 @@
-from src.task.some import some
+from src.task.bin_tree_max_depth import Solution
 
 
 def test_104():
-    s = some()
-    assert not None
+    s = Solution()
+    assert s.maxDepth(None) == 0
