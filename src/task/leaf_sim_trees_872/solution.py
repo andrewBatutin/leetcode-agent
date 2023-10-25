@@ -1,4 +1,5 @@
 from typing import Optional
+
 from src.utils.utils import TreeNode
 
 
@@ -11,7 +12,7 @@ class Solution:
 
         while queue_1:
             current = queue_1.pop()
-            
+
             if (current.left is None) & (current.right is None):
                 list_1.append(current.val)
 
@@ -23,7 +24,7 @@ class Solution:
 
         while queue_2:
             current = queue_2.pop()
-            
+
             if (current.left is None) & (current.right is None):
                 list_2.append(current.val)
 
@@ -32,6 +33,5 @@ class Solution:
 
             if current.right:
                 queue_2.append(current.right)
-
 
         return list_1 == list_2

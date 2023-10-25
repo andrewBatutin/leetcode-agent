@@ -13,7 +13,7 @@ Two binary trees are considered leaf-similar if their leaf value sequence is the
 
 Return true if and only if the two given trees with head nodes root1 and root2 are leaf-similar.
 
- 
+
 
 Example 1:
 
@@ -25,7 +25,7 @@ Example 2:
 
 Input: root1 = [1,2,3], root2 = [1,3,2]
 Output: false
- 
+
 
 Constraints:
 

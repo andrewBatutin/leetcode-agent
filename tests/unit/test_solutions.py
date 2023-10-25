@@ -1,8 +1,32 @@
 import pytest
 
+from src.task.count_good_nodes_1448.solution import Solution as Solution_1448
 from src.task.leaf_sim_trees_872.solution import Solution as Solution_872
 from src.task.max_depth_104.bin_tree_max_depth import Solution
-from src.utils.utils import TreeNode, has_path
+from src.utils.utils import TreeNode, has_path, has_path_req
+
+
+@pytest.fixture
+def mock_adj_list_1448_2():
+    # [2,null,4,10,8,null,null,4]
+
+    root = TreeNode(
+        val=2,
+        left=None,
+        right=TreeNode(
+            val=4,
+            left=TreeNode(val=10, left=None, right=None),
+            right=TreeNode(val=8, left=None, right=TreeNode(val=4, left=None, right=None)),
+        ),
+    )
+    return root
+
+
+@pytest.fixture
+def mock_adj_list_1448():
+    list_flat = [3, 2, 4, 6, None, 1, 5]
+    adj_list = convert_list_adj_list(list_flat)
+    return convert_to_tree(adj_list=adj_list, root=list_flat[0])
 
 
 @pytest.fixture
@@ -80,16 +104,34 @@ def test_breadth_first(mock_tree):
 def test_left_sim(mock_adj_list_left_sim_1, mock_adj_list_left_sim_2):
     s = Solution_872()
     res = s.leafSimilar(mock_adj_list_left_sim_1, mock_adj_list_left_sim_2)
-    assert res == True
+    assert res is True
+
+
+def test_has_path_req(mock_tree):
+    res = has_path_req(mock_tree, "a", "f")
+    assert res is True
+    res = has_path_req(mock_tree, "a", "e")
+    assert res is True
+
+
+def test_has_no_path_req(mock_tree):
+    res = has_path_req(mock_tree, "a", "z")
+    assert res is False
 
 
 def test_has_path(mock_tree):
     res = has_path(mock_tree, "a", "f")
-    assert res == True
+    assert res is True
     res = has_path(mock_tree, "a", "e")
-    assert res == True
+    assert res is True
 
 
 def test_has_no_path(mock_tree):
     res = has_path(mock_tree, "a", "z")
-    assert res == False
+    assert res is False
+
+
+def test_count_good_nodes(mock_adj_list_1448_2):
+    s = Solution_1448()
+    res = s.goodNodes(mock_adj_list_1448_2)
+    assert res == 4
