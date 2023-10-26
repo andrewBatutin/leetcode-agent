@@ -1,5 +1,7 @@
 from src.utils.utils import TreeNode
 
+
+# repeat tomorrow
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
         s = [(root, root.val)]
@@ -15,5 +17,4 @@ class Solution:
                 if current.right:
                     s.append((current.right, curr_max))
 
-        return good_count 
-        
+        return good_count

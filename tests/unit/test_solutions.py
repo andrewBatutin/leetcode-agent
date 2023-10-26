@@ -12,7 +12,7 @@ def mock_adj_list_1448_2():
 
     root = TreeNode(
         val=2,
-        left=None,
+        left=TreeNode(val=1, left=None, right=None),
         right=TreeNode(
             val=4,
             left=TreeNode(val=10, left=None, right=None),
@@ -135,3 +135,26 @@ def test_count_good_nodes(mock_adj_list_1448_2):
     s = Solution_1448()
     res = s.goodNodes(mock_adj_list_1448_2)
     assert res == 4
+
+
+def test_bs_extraction():
+    import requests
+    from bs4 import BeautifulSoup
+
+    url = "https://www.theguardian.com/technology/2023/feb/25/nokia-launches-diy-repairable-budget-android-phone"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text)
+
+    metas = soup.find_all("meta")
+    res = [
+        meta.attrs["content"] for meta in metas if "property" in meta.attrs and "description" in meta.attrs["property"]
+    ]
+    print(res)
+
+
+def test_slg():
+    from slugify import slugify
+
+    txt = "https://www.theguardian.com/technology/2023/feb/25/nokia-launches-diy-repairable-budget-android-phone"
+    r = slugify(txt)
+    assert r == "https-www-theguardian-com-technology-2023-feb-25-nokia-launches-diy-repairable-budget-android-phone"

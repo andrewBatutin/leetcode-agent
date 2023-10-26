@@ -27,7 +27,8 @@ class Solution:
         s_stack = [root]
 
         while s_stack:
-            current = s_stack.pop()  #  this is the only difference between breadth and depth first, pop vs pop(0)
+            # this is the only difference between breadth and depth first, pop vs pop(0)
+            current = s_stack.pop()
             print(current.val)
             self.res.append(current.val)
             if current.right:
