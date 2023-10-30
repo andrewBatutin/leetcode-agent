@@ -3,7 +3,7 @@ import pytest
 from src.task.count_good_nodes_1448.solution import Solution as Solution_1448
 from src.task.leaf_sim_trees_872.solution import Solution as Solution_872
 from src.task.max_depth_104.bin_tree_max_depth import Solution
-from src.utils.utils import TreeNode, has_path, has_path_req
+from src.utils.utils import TreeNode, build_graph, has_path, has_path_req, undir_path
 
 
 @pytest.fixture
@@ -137,24 +137,20 @@ def test_count_good_nodes(mock_adj_list_1448_2):
     assert res == 4
 
 
-def test_bs_extraction():
-    import requests
-    from bs4 import BeautifulSoup
-
-    url = "https://www.theguardian.com/technology/2023/feb/25/nokia-launches-diy-repairable-budget-android-phone"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text)
-
-    metas = soup.find_all("meta")
-    res = [
-        meta.attrs["content"] for meta in metas if "property" in meta.attrs and "description" in meta.attrs["property"]
-    ]
-    print(res)
+def test_graph_conv():
+    edges = [["i", "j"], ["k", "i"], ["m", "k"], ["k", "l"], ["o", "n"]]
+    graph = build_graph(edges)
+    expected = {"i": ["j", "k"], "j": ["i"], "k": ["i", "m", "l"], "m": ["k"], "l": ["k"], "o": ["n"], "n": ["o"]}
+    assert graph == expected
 
 
-def test_slg():
-    from slugify import slugify
+def test_is_und_path():
+    edges = [["i", "j"], ["k", "i"], ["m", "k"], ["k", "l"], ["o", "n"]]
+    is_path = undir_path(edges, "i", "l")
+    assert is_path is True
 
-    txt = "https://www.theguardian.com/technology/2023/feb/25/nokia-launches-diy-repairable-budget-android-phone"
-    r = slugify(txt)
-    assert r == "https-www-theguardian-com-technology-2023-feb-25-nokia-launches-diy-repairable-budget-android-phone"
+
+def test_no_is_und_path():
+    edges = [["i", "j"], ["k", "i"], ["m", "k"], ["k", "l"], ["o", "n"]]
+    is_path = undir_path(edges, "i", "n")
+    assert is_path is False

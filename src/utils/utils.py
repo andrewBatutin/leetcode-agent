@@ -45,3 +45,34 @@ def has_path(root: TreeNode, src: str, dst: str) -> bool:
         if current.right:
             q.append(current.right)
     return False
+
+
+def build_graph(edges: list) -> dict:
+    graph = {}
+    for edge in edges:
+        if edge[0] not in graph:
+            graph[edge[0]] = []
+        if edge[1] not in graph:
+            graph[edge[1]] = []
+        graph[edge[0]].append(edge[1])
+        graph[edge[1]].append(edge[0])
+    return graph
+
+
+def undir_path(edges, node_a, node_b):
+    graph = build_graph(edges)
+    visited = set()
+    return has_path_rec(graph, node_a, node_b, visited)
+
+
+def has_path_rec(edges, src, dst, visited):
+    if src in visited:
+        return False
+    if src == dst:
+        return True
+    visited.add(src)
+    for neighbor in edges[src]:
+        if has_path_rec(edges, neighbor, dst, visited):
+            return True
+
+    return False
