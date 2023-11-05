@@ -3,7 +3,8 @@ import pytest
 from src.task.count_good_nodes_1448.solution import Solution as Solution_1448
 from src.task.leaf_sim_trees_872.solution import Solution as Solution_872
 from src.task.max_depth_104.bin_tree_max_depth import Solution
-from src.utils.utils import TreeNode, build_graph, has_path, has_path_req, undir_path
+from src.task.path_sum_3_437.solution import Solution as Solution_437
+from src.utils.utils import TreeNode, build_graph, connected_component_count, has_path, has_path_req, undir_path
 
 
 @pytest.fixture
@@ -154,3 +155,38 @@ def test_no_is_und_path():
     edges = [["i", "j"], ["k", "i"], ["m", "k"], ["k", "l"], ["o", "n"]]
     is_path = undir_path(edges, "i", "n")
     assert is_path is False
+
+
+def test_path_sum_3():
+    root = TreeNode(
+        val=10,
+        left=TreeNode(
+            val=5,
+            left=TreeNode(
+                val=3, left=TreeNode(val=3, left=None, right=None), right=TreeNode(val=-2, left=None, right=None)
+            ),
+            right=TreeNode(val=2, left=None, right=TreeNode(val=1, left=None, right=None)),
+        ),
+        right=TreeNode(val=-3, right=TreeNode(val=11, left=None, right=None)),
+    )
+    s = Solution_437()
+
+    res = s.pathSum(root, 8)
+    assert res == 3
+
+
+def test_connected_comp():
+    tree = TreeNode(
+        val=0,
+        left=TreeNode(
+            val=8,
+            left=TreeNode(val=0, left=None, right=None),
+            right=TreeNode(
+                val=5, left=TreeNode(val=0, left=None, right=None), right=TreeNode(val=8, left=None, right=None)
+            ),
+        ),
+        right=TreeNode(val=1, left=TreeNode(val=0, left=None, right=None), right=None),
+    )
+
+    c = connected_component_count(tree)
+    assert c == 2

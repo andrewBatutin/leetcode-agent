@@ -76,3 +76,30 @@ def has_path_rec(edges, src, dst, visited):
             return True
 
     return False
+
+
+def connected_component_count(root: TreeNode):
+    visited = set()
+    count = 0
+    if root.left:
+        if explore(root.left, visited):
+            count += 1
+    if root.right:
+        if explore(root.right, visited):
+            count += 1
+
+    return count
+
+
+def explore(current: TreeNode, visited: set):
+    if current.val in visited:
+        return False
+
+    visited.add(current.val)
+
+    if current.left:
+        explore(current.left, visited)
+    if current.right:
+        explore(current.right, visited)
+
+    return True
