@@ -9,8 +9,8 @@ client = OpenAI()
 
 def simple_assistant():
     assistant = client.beta.assistants.create(
-        name="Math Tutor",
-        instructions="You are a personal math tutor. Write and run code to answer math questions.",
+        name="Leetcode Tutor",
+        instructions="You are a personal leetcode tutor. Write and run code to answer leetcode questions.",
         tools=[{"type": "code_interpreter"}],
         model="gpt-4-1106-preview",
     )
